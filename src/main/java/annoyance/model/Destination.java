@@ -1,36 +1,28 @@
 package annoyance.model;
 
 import java.io.IOException;
-import java.time.Clock;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
 public class Destination {
-    private static final DateTimeFormatter date = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static String DATE = "{date}";
-    private static final DateTimeFormatter week = DateTimeFormatter.ofPattern("w");
-    private static String WEEK = "{week}";
-    private final String path;
+    private final Template path;
     private final Repository repository;
     private final Optional<String> message;
 
     public Destination(final Repository repository, final String path, final Optional<String> message) {
-        this(Clock.systemUTC(), repository, path, message);
+        this(repository, new Template(path), message);
     }
 
-    public Destination(final Clock clock, final Repository repository, final String path, final Optional<String> message) {
+    public Destination(final Repository repository, final Template template, final Optional<String> message) {
         this.repository = repository;
         this.message = message;
-        final LocalDateTime now = LocalDateTime.now(clock);
-        this.path = path.replace(DATE, now.format(date)).replace(WEEK, now.format(week));;
+        this.path = template;
     }
 
     public String getPath() {
-        return this.path;
+        return this.path.render();
     }
 
     @Override
