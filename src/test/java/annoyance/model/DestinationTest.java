@@ -24,4 +24,16 @@ public class DestinationTest {
         dst.getPath();
         verify(template).render();
     }
+
+    @Test
+    public void parse() {
+        final String job = "owner/repo/stuff/{date}/{week}.md";
+        final Destination destination = Destination.parse(job, Optional.empty());
+        assertThat(destination.getPath())
+                .doesNotContain("{date}")
+                .doesNotContain("{week}")
+                .startsWith("stuff/")
+                .endsWith(".md");
+    }
+
 }

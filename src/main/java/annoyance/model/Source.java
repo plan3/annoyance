@@ -1,7 +1,11 @@
 package annoyance.model;
 
+import static java.util.Arrays.asList;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.kohsuke.github.GHRepository;
@@ -26,5 +30,10 @@ public class Source {
     @Override
     public String toString() {
         return getClass().getSimpleName() + '[' + this.repository + ':' + this.template + ']';
+    }
+
+    public static Source parse(final String job) {
+        final List<String> src = new ArrayList<>(asList(job.split("/")));
+        return new Source(new Repository(src), String.join("/", src));
     }
 }

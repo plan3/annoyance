@@ -1,6 +1,10 @@
 package annoyance.model;
 
+import static java.util.Arrays.asList;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.kohsuke.github.GHRepository;
@@ -36,5 +40,10 @@ public class Destination {
 
     public String getMessage() {
         return this.message.orElse("");
+    }
+
+    public static Destination parse(final String job, final Optional<String> message) {
+        final List<String> dst = new ArrayList<>(asList(job.split("/")));
+        return new Destination(new Repository(dst), String.join("/", dst), message);
     }
 }
