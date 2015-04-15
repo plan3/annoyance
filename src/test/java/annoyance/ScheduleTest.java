@@ -1,11 +1,12 @@
 package annoyance;
 
-import static java.util.Arrays.asList;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;
 import static org.fest.assertions.api.Assertions.assertThat;
 
 import annoyance.model.Schedule;
+
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -19,13 +20,15 @@ public class ScheduleTest {
 
     @Test
     public void daily() {
-        assertThat(Schedule.daily.find(singletonMap("BLAH", "daily:bleh:blah"))).isEqualTo(asList("bleh:blah"));
+        final Map<String, String> expected = singletonMap("BLAH", "bleh:blah");
+        assertThat(Schedule.daily.find(singletonMap("BLAH", "daily:bleh:blah"))).isEqualTo(expected);
         assertThat(Schedule.daily.find(singletonMap("BLAH", "weekly:bleh:blah"))).isEmpty();
     }
 
     @Test
     public void weekly() {
-        assertThat(Schedule.weekly.find(singletonMap("BLOH", "weekly:bleh:blah"))).isEqualTo(asList("bleh:blah"));
+        final Map<String, String> expected = singletonMap("BLOH", "bleh:blah");
+        assertThat(Schedule.weekly.find(singletonMap("BLOH", "weekly:bleh:blah"))).isEqualTo(expected);
         assertThat(Schedule.weekly.find(singletonMap("BLOH", "daily:bleh:blah"))).isEmpty();
     }
 }

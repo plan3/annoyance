@@ -31,7 +31,7 @@ public class Nag {
     }
 
     public Stream<PullRequest> tasks() {
-        return this.schedule.find(this.env).stream()
+        return this.schedule.find(this.env).values().stream()
                 .map((task) -> task.split(":"))
                 .map(Arrays::asList)
                 .map(this::toPullRequest);
