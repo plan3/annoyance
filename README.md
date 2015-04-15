@@ -22,7 +22,7 @@ Beacuse teams of people have collective chores that they need to perform.
 * Examples
    * Open pull request
       * `<qualifier>=<schedule>:<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>`
-      * e.g. `EXAMPLE=daily:pr:chids/annoyance:chids/annoyance/stuff/{date}/{week}-template.md`
+      * e.g. `EXAMPLE=daily:pr:chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md`
 
 ### Additional configuration
 
