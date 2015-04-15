@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
@@ -15,13 +16,13 @@ public class Destination {
     private static String WEEK = "{week}";
     private final String path;
     private final Repository repository;
-    private final String message;
+    private final Optional<String> message;
 
-    public Destination(final Repository repository, final String path, final String message) {
+    public Destination(final Repository repository, final String path, final Optional<String> message) {
         this(Clock.systemUTC(), repository, path, message);
     }
 
-    public Destination(final Clock clock, final Repository repository, final String path, final String message) {
+    public Destination(final Clock clock, final Repository repository, final String path, final Optional<String> message) {
         this.repository = repository;
         this.message = message;
         final LocalDateTime now = LocalDateTime.now(clock);
@@ -42,6 +43,6 @@ public class Destination {
     }
 
     public String getMessage() {
-        return this.message;
+        return this.message.orElse("");
     }
 }

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.kohsuke.github.GitHub;
@@ -42,8 +43,9 @@ public class Nag {
         final String[] job = task.getValue();
         final List<String> src = new ArrayList<>(asList(job[0].split("/")));
         final List<String> dst = new ArrayList<>(asList(job[1].split("/")));
+        final Optional<String> message = Optional.ofNullable((job.length < 3) || job[2].isEmpty() ? null : job[2]);
         final Source source = new Source(new Repository(src), src.iterator().next());
-        final Destination destination = new Destination(new Repository(dst), String.join("/", dst), job[2]);
+        final Destination destination = new Destination(new Repository(dst), String.join("/", dst), message);
         return new PullRequest(task.getKey(), source, destination);
     }
 

@@ -11,8 +11,15 @@ import org.junit.Test;
 public class WorkerTest {
 
     @Test
-    public void parseEnv() {
+    public void withMention() {
         final String env = "daily:chids/annoyance-data/template.md:chids/annoyance-data/stuff/{date}/{week}.md:@chids";
+        final Nag worker = new Nag(Schedule.daily, singletonMap("mock", env));
+        assertThat(worker.tasks().collect(toList())).hasSize(1);
+    }
+
+    @Test
+    public void withoutMention() {
+        final String env = "daily:chids/annoyance-data/template.md:chids/annoyance-data/stuff/{date}/{week}.md";
         final Nag worker = new Nag(Schedule.daily, singletonMap("mock", env));
         assertThat(worker.tasks().collect(toList())).hasSize(1);
     }
