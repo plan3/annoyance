@@ -26,4 +26,8 @@ public class Template {
         return this.source.replace(DATE, now.format(date)).replace(WEEK, now.format(week));
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + '[' + this.source + ']';
+    }
 }
