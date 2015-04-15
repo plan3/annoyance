@@ -20,10 +20,14 @@ public class PullRequest {
     public boolean execute(final GitHub github) {
         try(InputStream content = this.source.from(github)) {
             final GHRepository repository = this.destination.from(github);
-            final String branch = "yadda-" + UUID.randomUUID().toString();
+            final String branch = "annoyance-" + UUID.randomUUID().toString();
             final String master = repository.getRef("heads/master").getObject().getSha();
             repository.createRef("refs/heads/".concat(branch), master);
-            repository.createContent(IOUtils.toByteArray(content), "Howdy", this.destination.getPath(), branch);
+            repository.createContent(
+                    IOUtils.toByteArray(content),
+                    this.source.toString(),
+                    this.destination.getPath(),
+                    branch);
             repository.createPullRequest("an title", branch, "master", "yalla, @chids");
             return true;
         }
