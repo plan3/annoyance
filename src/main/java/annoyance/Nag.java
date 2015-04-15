@@ -12,10 +12,11 @@ import annoyance.model.Source;
 import java.io.IOException;
 import java.time.Clock;
 import java.time.LocalDate;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 import org.kohsuke.github.GitHub;
@@ -31,19 +32,19 @@ public class Nag {
     }
 
     public Stream<PullRequest> tasks() {
-        return this.schedule.find(this.env).values().stream()
-                .map((task) -> task.split(":"))
-                .map(Arrays::asList)
+        return this.schedule.find(this.env).entrySet().stream()
+                .map((task) -> new SimpleEntry<>(task.getKey(), task.getValue().split(":")))
                 .map(this::toPullRequest);
     }
 
-    public PullRequest toPullRequest(final List<String> job) {
+    public PullRequest toPullRequest(final Entry<String, String[]> task) {
         // We need mutable lists
-        final List<String> src = new ArrayList<>(asList(job.get(0).split("/")));
-        final List<String> dst = new ArrayList<>(asList(job.get(1).split("/")));
+        final String[] job = task.getValue();
+        final List<String> src = new ArrayList<>(asList(job[0].split("/")));
+        final List<String> dst = new ArrayList<>(asList(job[1].split("/")));
         final Source source = new Source(new Repository(src), src.iterator().next());
         final Destination destination = new Destination(new Repository(dst), String.join("/", dst));
-        return new PullRequest(source, destination);
+        return new PullRequest(task.getKey(), source, destination);
     }
 
     public static void main(final String[] args) throws IOException {
@@ -64,7 +65,7 @@ public class Nag {
 
     public static void run(final Schedule schedule, final GitHub github, final Map<String, String> env) {
         new Nag(schedule, env).tasks()
-                .map((task) -> Boolean.toString(task.execute(github)) + ':' + task.toString())
-                .forEach(System.err::println);
+        .map((task) -> Boolean.toString(task.execute(github)) + ':' + task.toString())
+        .forEach(System.err::println);
     }
 }

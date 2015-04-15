@@ -11,8 +11,10 @@ import org.kohsuke.github.GitHub;
 public class PullRequest {
     private final Source source;
     private final Destination destination;
+    private final String title;
 
-    public PullRequest(final Source source, final Destination destination) {
+    public PullRequest(final String title, final Source source, final Destination destination) {
+        this.title = title.replace('_', ' ');
         this.source = source;
         this.destination = destination;
     }
@@ -28,7 +30,7 @@ public class PullRequest {
                     this.source.toString(),
                     this.destination.getPath(),
                     branch);
-            repository.createPullRequest("an title", branch, "master", "yalla, @chids");
+            repository.createPullRequest(this.title, branch, "master", "yalla, @chids");
             return true;
         }
         catch(final IOException e) {
