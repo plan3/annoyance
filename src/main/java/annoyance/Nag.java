@@ -20,12 +20,12 @@ import java.util.stream.Stream;
 
 import org.kohsuke.github.GitHub;
 
-public class Worker {
+public class Nag {
 
     private final Map<String, String> env;
     private final Schedule schedule;
 
-    public Worker(final Schedule schedule, final Map<String, String> env) {
+    public Nag(final Schedule schedule, final Map<String, String> env) {
         this.schedule = schedule;
         this.env = env;
     }
@@ -63,7 +63,7 @@ public class Worker {
     }
 
     public static void run(final Schedule schedule, final GitHub github, final Map<String, String> env) {
-        new Worker(schedule, env).tasks()
+        new Nag(schedule, env).tasks()
                 .map((task) -> task.toString() + '\t' + task.execute(github))
                 .forEach(System.err::println);
     }

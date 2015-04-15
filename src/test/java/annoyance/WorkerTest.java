@@ -13,7 +13,7 @@ public class WorkerTest {
     @Test
     public void parseEnv() {
         final String env = "daily:chids/annoyance-data/template.md:chids/annoyance-data/stuff/{date}/{week}.md";
-        final Worker worker = new Worker(Schedule.daily, singletonMap("mock", env));
+        final Nag worker = new Nag(Schedule.daily, singletonMap("mock", env));
         assertThat(worker.tasks().collect(toList())).hasSize(1);
     }
 }
