@@ -21,8 +21,8 @@ Because teams of people have collective chores that they need to perform.
       * `daily` is executed at noon
       * `weekly` is executed on Fridays at noon
    * The destination supports the following variable expansions
-      * `{DATE}` expands to the current date in `YYYY-MM-DD` format (i.e. `2015-03-14`)
-      * `{WEEK}` expands to the current week number (i.e. `08`)
+      * `{date}` expands to the current date in `YYYY-MM-DD` format (i.e. `2015-03-14`)
+      * `{week}` expands to the current week number (i.e. `08`)
    * The environment variable name for a task will be used as the title of the pull request
       * Underscore `_` will be replaced by space ` `
 * Examples
