@@ -10,13 +10,6 @@
         <service.mainClass>annoyance.Nag</service.mainClass>
     </properties>
     <dependencies>
-        <!--
-        <dependency>
-            <groupId>org.eclipse.mylyn.github</groupId>
-            <artifactId>org.eclipse.egit.github.core</artifactId>
-            <version>2.1.5</version>
-        </dependency>
-        -->
         <dependency>
             <groupId>org.kohsuke</groupId>
             <artifactId>github-api</artifactId>
