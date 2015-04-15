@@ -64,7 +64,7 @@ public class Nag {
 
     public static void run(final Schedule schedule, final GitHub github, final Map<String, String> env) {
         new Nag(schedule, env).tasks()
-                .map((task) -> task.toString() + '\t' + task.execute(github))
+                .map((task) -> Boolean.toString(task.execute(github)) + ':' + task.toString())
                 .forEach(System.err::println);
     }
 }
