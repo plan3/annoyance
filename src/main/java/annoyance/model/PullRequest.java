@@ -1,10 +1,8 @@
 package annoyance.model;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.UUID;
 
-import org.apache.commons.io.IOUtils;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
@@ -20,13 +18,13 @@ public class PullRequest {
     }
 
     public boolean execute(final GitHub github) {
-        try(InputStream content = this.source.from(github)) {
+        try {
             final GHRepository repository = this.destination.from(github);
             final String branch = "annoyance-" + UUID.randomUUID().toString();
             final String master = repository.getRef("heads/master").getObject().getSha();
             repository.createRef("refs/heads/".concat(branch), master);
             repository.createContent(
-                    IOUtils.toByteArray(content),
+                    this.source.from(github).render(),
                     this.source.toString(),
                     this.destination.getPath(),
                     branch);

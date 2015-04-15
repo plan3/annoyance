@@ -5,6 +5,7 @@ import static java.util.Arrays.copyOfRange;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
@@ -17,9 +18,11 @@ public class Source {
         this.template = template;
     }
 
-    public InputStream from(final GitHub github) throws IOException {
+    public Template from(final GitHub github) throws IOException {
         final GHRepository repository = this.repository.from(github);
-        return repository.getFileContent("template.md").read();
+        try(InputStream stream = repository.getFileContent(this.template).read()) {
+            return new Template(IOUtils.toString(stream));
+        }
     }
 
     public static Source parse(final String string) {
