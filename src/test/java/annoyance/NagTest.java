@@ -8,7 +8,7 @@ import annoyance.model.Schedule;
 
 import org.junit.Test;
 
-public class WorkerTest {
+public class NagTest {
 
     @Test
     public void withMention() {

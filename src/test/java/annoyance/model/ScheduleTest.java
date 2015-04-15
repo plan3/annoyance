@@ -1,4 +1,4 @@
-package annoyance;
+package annoyance.model;
 
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonMap;

@@ -1,4 +1,4 @@
-package annoyance;
+package annoyance.model;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 

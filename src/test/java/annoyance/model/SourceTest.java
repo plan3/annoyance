@@ -1,4 +1,4 @@
-package annoyance;
+package annoyance.model;
 
 import annoyance.model.Source;
 
