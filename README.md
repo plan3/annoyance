@@ -2,7 +2,7 @@
 
 ## What
 
-Regularly reminding groups of people about the chores they wouldn't otherwise do by opening pull requests and mentioning the ones deemed responsible.
+Regularly reminding groups of people about the chores they wouldn't otherwise do by opening pull requests and mentioning the ones deemed responsible. Examples of templates and pull requests can be found [here](https://github.com/smp-labs/annoyances).
 
 ## Why
 
