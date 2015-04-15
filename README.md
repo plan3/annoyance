@@ -27,8 +27,8 @@ Because teams of people have collective chores that they need to perform.
       * Underscore `_` will be replaced by space ` `
 * Examples
    * Open pull request
-      * `<qualifier>=<schedule>:<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>`
-      * e.g. `EXAMPLE=daily:pr:chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md`
+      * `<qualifier>=<schedule>:<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>:<pr-description>`
+      * e.g. `EXAMPLE=daily:pr:chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md:@chids`
 
 ### Heroku app configuration
 

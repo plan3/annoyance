@@ -43,7 +43,7 @@ public class Nag {
         final List<String> src = new ArrayList<>(asList(job[0].split("/")));
         final List<String> dst = new ArrayList<>(asList(job[1].split("/")));
         final Source source = new Source(new Repository(src), src.iterator().next());
-        final Destination destination = new Destination(new Repository(dst), String.join("/", dst));
+        final Destination destination = new Destination(new Repository(dst), String.join("/", dst), job[2]);
         return new PullRequest(task.getKey(), source, destination);
     }
 

@@ -1,7 +1,5 @@
 package annoyance.model;
 
-import static java.util.Arrays.copyOfRange;
-
 import java.io.IOException;
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -17,13 +15,15 @@ public class Destination {
     private static String WEEK = "{week}";
     private final String path;
     private final Repository repository;
+    private final String message;
 
-    public Destination(final Repository repository, final String path) {
-        this(Clock.systemUTC(), repository, path);
+    public Destination(final Repository repository, final String path, final String message) {
+        this(Clock.systemUTC(), repository, path, message);
     }
 
-    public Destination(final Clock clock, final Repository repository, final String path) {
+    public Destination(final Clock clock, final Repository repository, final String path, final String message) {
         this.repository = repository;
+        this.message = message;
         final LocalDateTime now = LocalDateTime.now(clock);
         this.path = path.replace(DATE, now.format(date)).replace(WEEK, now.format(week));;
     }
@@ -41,14 +41,7 @@ public class Destination {
         return this.repository.from(github);
     }
 
-    public static Destination parse(final String string) {
-        final String[] segments = string.split("/");
-        // At least owner, repo and a file name
-        if(segments.length > 2) {
-            final Repository repository = new Repository(segments[0], segments[1]);
-            final String template = String.join("/", copyOfRange(segments, 2, segments.length));
-            return new Destination(repository, template);
-        }
-        throw new IllegalArgumentException("owner/repo/path required, was: " + string);
+    public String getMessage() {
+        return this.message;
     }
 }

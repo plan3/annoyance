@@ -34,7 +34,7 @@ public class PullRequest {
             // "No commits between master and annoyance-08baaeca-7b27-480c-b838-de7e00f188fb"
             // ...which I assume is an eventual consistency thing, i.e.: the branch commit hasn't been fully propagated
             // and therefore the branch doesn't differ from 'master' and creating the PR fails.
-            repository.createPullRequest(this.title, branch, "master", "yalla, @chids");
+            repository.createPullRequest(this.title, branch, "master", this.destination.getMessage());
             return true;
         }
         catch(final IOException e) {
