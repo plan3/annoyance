@@ -28,7 +28,7 @@ Because teams of people have collective chores that they need to perform.
 * Examples
    * Open pull request
       * `<qualifier>=<schedule>:<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>:<pr-description>`
-      * e.g. `EXAMPLE=daily:pr:chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md:@chids`
+      * e.g. `EXAMPLE=daily:chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md:@chids`
 
 ### Heroku app configuration
 
