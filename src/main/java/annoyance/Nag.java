@@ -42,8 +42,17 @@ public class Nag {
 
     public static void main(final String[] args) throws IOException {
         final Map<String, String> env = getenv();
-        final GitHub github = GitHub.connect("x-oauth-basic", env.get("GITHUB_TOKEN"));
+        final GitHub github = github(env);
         run(github, LocalDate.now(Clock.systemUTC()), env);
+    }
+
+    private static GitHub github(final Map<String, String> env) throws IOException {
+        final String ghe = getenv("GITHUB_API_URL");
+        final String token = env.get("GITHUB_TOKEN");
+        if((ghe == null) || ghe.trim().isEmpty()) {
+            return GitHub.connect("x-oauth-basic", token);
+        }
+        return GitHub.connectToEnterprise(ghe, "x-oauth-basic", token);
     }
 
     public static void run(final GitHub github, final LocalDate now, final Map<String, String> env) {

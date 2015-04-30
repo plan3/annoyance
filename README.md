@@ -13,6 +13,7 @@ Because teams of people have collective chores that they need to perform.
 ### Basic configuration
 
 * `GITHUB_TOKEN`: A personal access token with proper permissions
+* `GITHUB_API_URL`: (optional) Github API URL, only needed for use with Github Enterprise
 
 ### Configuring annoyances
 
