@@ -13,7 +13,7 @@
         <dependency>
             <groupId>org.kohsuke</groupId>
             <artifactId>github-api</artifactId>
-            <version>1.66</version>
+            <version>1.85</version>
         </dependency>
         <!-- Test dep's -->
         <dependency>
