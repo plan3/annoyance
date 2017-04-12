@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
-public class PullRequest {
+public class PullRequest implements Task {
     private final Source source;
     private final Destination destination;
     private final String title;
@@ -17,6 +17,7 @@ public class PullRequest {
         this.destination = destination;
     }
 
+    @Override
     public boolean execute(final GitHub github) {
         try {
             final GHRepository repository = this.destination.from(github);
