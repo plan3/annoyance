@@ -21,6 +21,7 @@ Because teams of people have collective chores that they need to perform.
    * `<schedule>` is one of `daily` or `weekly` where...
       * `daily` is executed at noon
       * `weekly` is executed on Fridays at noon
+   * `<task>` is either or `pr` or `issue`
    * The destination supports the following variable expansions
       * `{date}` expands to the current date in `YYYY-MM-DD` format (i.e. `2015-03-14`)
       * `{week}` expands to the current week number (i.e. `08`)
@@ -28,8 +29,8 @@ Because teams of people have collective chores that they need to perform.
       * Underscore `_` will be replaced by space ` `
 * Examples
    * Open pull request
-      * `<schedule>_some-descriptive-name=<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>:<pr-description>`
-      * e.g. `DAILY_EXAMPLE=chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md:@chids`
+      * `<schedule>_some-descriptive-name=<task>:<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>:<pr-description>`
+      * e.g. `DAILY_EXAMPLE=pr:chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md:@chids`
 
 ### Heroku app configuration
 
