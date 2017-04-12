@@ -4,23 +4,42 @@ import static java.util.Collections.singletonMap;
 import static java.util.stream.Collectors.toList;
 import static org.fest.assertions.api.Assertions.assertThat;
 
+import annoyance.model.Issue;
+import annoyance.model.PullRequest;
 import annoyance.model.Schedule;
+import annoyance.model.Task;
 
 import org.junit.Test;
 
 public class NagTest {
 
+    private static final String PR = "pr:";
+    private static final String ISSUE = "issue:";
+    private static final String MENTION = "owner/repo/template.md:owner/repo/stuff/{date}/{week}.md:@chids";
+    private static final String NO_MENTION = "owner/repo/template.md:owner/repo/stuff/{date}/{week}.md";
+
     @Test
-    public void withMention() {
-        final String env = "daily:owner/repo/template.md:owner/repo/stuff/{date}/{week}.md:@chids";
-        final Nag worker = new Nag(Schedule.daily, singletonMap("mock", env));
-        assertThat(worker.tasks().collect(toList())).hasSize(1);
+    public void prWithMention() {
+        assertResult(new Nag(Schedule.daily, singletonMap("DAILY_TEST", PR.concat(MENTION))), PullRequest.class);
     }
 
     @Test
-    public void withoutMention() {
-        final String env = "daily:owner/repo/template.md:owner/repo/stuff/{date}/{week}.md";
-        final Nag worker = new Nag(Schedule.daily, singletonMap("mock", env));
+    public void prWithoutMention() {
+        assertResult(new Nag(Schedule.weekly, singletonMap("WEEKLY_TEST", PR.concat(NO_MENTION))), PullRequest.class);
+    }
+
+    @Test
+    public void issueWithMention() {
+        assertResult(new Nag(Schedule.daily, singletonMap("DAILY_TEST", ISSUE.concat(MENTION))), Issue.class);
+    }
+
+    @Test
+    public void issueWithoutMention() {
+        assertResult(new Nag(Schedule.weekly, singletonMap("WEEKLY_TEST", ISSUE.concat(NO_MENTION))), Issue.class);
+    }
+
+    private void assertResult(final Nag worker, final Class<? extends Task> type) {
         assertThat(worker.tasks().collect(toList())).hasSize(1);
+        assertThat(worker.tasks().collect(toList()).get(0)).isExactlyInstanceOf(type);
     }
 }
