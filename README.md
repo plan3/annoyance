@@ -28,11 +28,12 @@ Because teams of people have collective chores that they need to perform.
       * Underscore `_` will be replaced by space ` `
 * Examples
    * Open pull request
-      * `<qualifier>=<schedule>:<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>:<pr-description>`
-      * e.g. `EXAMPLE=daily:chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md:@chids`
+      * `<schedule>_some-descriptive-name=<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>:<pr-description>`
+      * e.g. `DAILY_EXAMPLE=chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md:@chids`
 
 ### Heroku app configuration
 
-1. Add one worker addon
-2. Configure the worker to run daily at noon
-3. The command to run `` 
+1. Add the [Scheduler](https://devcenter.heroku.com/articles/scheduler) add-on
+2. Configure it to run daily at noon
+
+### Running locally

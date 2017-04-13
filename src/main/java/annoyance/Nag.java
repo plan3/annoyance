@@ -36,8 +36,8 @@ public class Nag {
 
     static PullRequest toPullRequest(final Entry<String, String[]> task) {
         final String[] job = task.getValue();
-        final Optional<String> message = Optional.ofNullable((job.length < 3) || job[2].isEmpty() ? null : job[2]);
-        return new PullRequest(task.getKey(), Source.parse(job[0]), Destination.parse(job[1], message));
+        final Optional<String> message = Optional.ofNullable((job.length < 4) || job[3].isEmpty() ? null : job[3]);
+        return new PullRequest(task.getKey(), Source.parse(job[1]), Destination.parse(job[2], message));
     }
 
     public static void main(final String[] args) throws IOException {
@@ -61,12 +61,12 @@ public class Nag {
                 run(Schedule.weekly, github, env);
             default:
                 run(Schedule.daily, github, env);
-
         }
     }
 
     public static void run(final Schedule schedule, final GitHub github, final Map<String, String> env) {
-        new Nag(schedule, env).tasks()
+        new Nag(schedule, env)
+                .tasks()
                 .map((task) -> Boolean.toString(task.execute(github)) + ':' + task.toString())
                 .forEach(System.err::println);
     }
