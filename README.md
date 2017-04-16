@@ -27,6 +27,7 @@ Because teams of people have collective chores that they need to perform.
    * The destination supports the following variable expansions
       * `{date}` expands to the current date in `YYYY-MM-DD` format (i.e. `2015-03-14`)
       * `{week}` expands to the current week number (i.e. `08`)
+      * `{dow}` expands to the day of the week (i.e. `Tuesday`)
    * The environment variable name for a task will be used as the title of the pull request
       * Underscore `_` will be replaced by space ` `
 * Examples

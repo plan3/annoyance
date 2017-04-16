@@ -9,6 +9,8 @@ public class Template {
     private static String DATE = "{date}";
     private static final DateTimeFormatter week = DateTimeFormatter.ofPattern("w");
     private static String WEEK = "{week}";
+    private static final DateTimeFormatter dow = DateTimeFormatter.ofPattern("EEEE");
+    private static String DOW = "{dow}";
     private final String source;
     private final Clock clock;
 
@@ -23,7 +25,7 @@ public class Template {
 
     public String render() {
         final LocalDateTime now = LocalDateTime.now(this.clock);
-        return this.source.replace(DATE, now.format(date)).replace(WEEK, now.format(week));
+        return this.source.replace(DATE, now.format(date)).replace(WEEK, now.format(week)).replace(DOW, now.format(dow));
     }
 
     @Override
