@@ -15,5 +15,6 @@ public class TemplateTest {
         final Clock clock = Clock.fixed(Instant.parse("1979-08-07T10:10:10.00Z"), ZoneOffset.UTC);
         assertThat(new Template("foo/{date}/baz", clock).render()).isEqualTo("foo/1979-08-07/baz");
         assertThat(new Template("foo/bar/{week}-baz", clock).render()).isEqualTo("foo/bar/32-baz");
+        assertThat(new Template("foo/bar/{dow}-baz", clock).render()).isEqualTo("foo/bar/Tuesday-baz");
     }
 }
