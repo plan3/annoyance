@@ -1,33 +1,37 @@
 package annoyance.model;
 
-import static java.util.Collections.emptyMap;
-import static java.util.Collections.singletonMap;
 import static org.fest.assertions.api.Assertions.assertThat;
+import static org.fest.assertions.api.Assertions.entry;
 
+import java.time.DayOfWeek;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-
 public class ScheduleTest {
 
-    @Test
-    public void empty() {
-        for(final Schedule schedule : Schedule.values()) {
-            assertThat(schedule.find(emptyMap())).isEmpty();
-        }
-    }
+    public static final Map<String, String> ENV = new HashMap<String, String>() {{
+        put("MONDAY_", "");
+        put("TUESDAY_", "");
+        put("WEDNESDAY_", "");
+        put("THURSDAY_", "");
+        put("FRIDAY_", "");
+        put("SATURDAY_", "");
+        put("SUNDAY_", "");
+        put("DAILY_", "");
+        put("WEEKDAY_", "");
+    }};
 
     @Test
-    public void daily() {
-        final Map<String, String> expected = singletonMap("DAILY_BLAH", "pr:bleh:blah");
-        assertThat(Schedule.daily.find(singletonMap("DAILY_BLAH", "pr:bleh:blah"))).isEqualTo(expected);
-        assertThat(Schedule.daily.find(singletonMap("WEEKLY_BLAH", "pr:bleh:blah"))).isEmpty();
-    }
-
-    @Test
-    public void weekly() {
-        final Map<String, String> expected = singletonMap("WEEKLY_BLOH", "pr:bleh:blah");
-        assertThat(Schedule.weekly.find(singletonMap("WEEKLY_BLOH", "pr:bleh:blah"))).isEqualTo(expected);
-        assertThat(Schedule.weekly.find(singletonMap("DAILY_BLOH", "pr:bleh:blah"))).isEmpty();
+    public void filter() {
+        assertThat(Schedule.filter(DayOfWeek.SATURDAY, ENV))
+                .hasSize(2)
+                .contains(entry("SATURDAY_", ""), entry("DAILY_", ""));
+        assertThat(Schedule.filter(DayOfWeek.FRIDAY, ENV))
+                .hasSize(3)
+                .contains(entry("FRIDAY_", ""), entry("DAILY_", ""), entry("WEEKDAY_", ""));
+        assertThat(Schedule.filter(DayOfWeek.MONDAY, ENV))
+                .hasSize(3)
+                .contains(entry("MONDAY_", ""), entry("DAILY_", ""), entry("WEEKDAY_", ""));
     }
 }
