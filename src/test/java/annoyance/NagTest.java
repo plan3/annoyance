@@ -6,7 +6,6 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import annoyance.model.Issue;
 import annoyance.model.PullRequest;
-import annoyance.model.Schedule;
 import annoyance.model.Task;
 
 import org.junit.Test;
@@ -20,22 +19,22 @@ public class NagTest {
 
     @Test
     public void prWithMention() {
-        assertResult(new Nag(Schedule.daily, singletonMap("DAILY_TEST", PR.concat(MENTION))), PullRequest.class);
+        assertResult(new Nag(singletonMap("DAILY_TEST", PR.concat(MENTION))), PullRequest.class);
     }
 
     @Test
     public void prWithoutMention() {
-        assertResult(new Nag(Schedule.weekly, singletonMap("WEEKLY_TEST", PR.concat(NO_MENTION))), PullRequest.class);
+        assertResult(new Nag(singletonMap("WEEKLY_TEST", PR.concat(NO_MENTION))), PullRequest.class);
     }
 
     @Test
     public void issueWithMention() {
-        assertResult(new Nag(Schedule.daily, singletonMap("DAILY_TEST", ISSUE.concat(MENTION))), Issue.class);
+        assertResult(new Nag(singletonMap("DAILY_TEST", ISSUE.concat(MENTION))), Issue.class);
     }
 
     @Test
     public void issueWithoutMention() {
-        assertResult(new Nag(Schedule.weekly, singletonMap("WEEKLY_TEST", ISSUE.concat(NO_MENTION))), Issue.class);
+        assertResult(new Nag(singletonMap("WEEKLY_TEST", ISSUE.concat(NO_MENTION))), Issue.class);
     }
 
     private void assertResult(final Nag worker, final Class<? extends Task> type) {

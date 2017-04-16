@@ -20,9 +20,10 @@ Because teams of people have collective chores that they need to perform.
 ### Configuring annoyances
 
 * General
-   * `<schedule>` is one of `daily` or `weekly` where...
-      * `daily` is executed daily
-      * `weekly` is executed on Fridays
+   * `<schedule>` is one of `DAILY`, `WEEKDAY`, or `<day-of-week>` where...
+      * `DAILY` is executed once every day
+      * `WEEKDAY` is executed daily Monday to Friday
+      * `<day-of-week>` is executed on that day of the week, i.e. `TUESDAY`
    * `<task>` is either or `pr` or `issue`
    * The destination supports the following variable expansions
       * `{date}` expands to the current date in `YYYY-MM-DD` format (i.e. `2015-03-14`)
@@ -33,7 +34,11 @@ Because teams of people have collective chores that they need to perform.
 * Examples
    * Open pull request
       * `<schedule>_some-descriptive-name=<owner/org>/<repo>:<owner/org>/<repo>/<where-to-put-file>:<pr-description>`
-      * e.g. `DAILY_EXAMPLE=chids/annoyance/template.md:chids/annoyance/stuff/{date}/{week}.md:@chids`
+      * e.g. `DAILY_EXAMPLE=pr:plan3/annoyances/template.md:plan3/annoyances/stuff/{date}/{week}.md:@chids`
+   * Create issue
+      * `<schedule>_some-descriptive-name=<owner/org>/<repo>:<owner/org>/<repo>:<issue-description>`
+      * e.g. `DAILY_EXAMPLE=issue:plan3/annoyances/template.md:plan3/annoyances:@chids`
+
 ### Heroku app configuration
 
 1. Add the [Scheduler](https://devcenter.heroku.com/articles/scheduler) add-on
